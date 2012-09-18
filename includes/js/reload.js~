@@ -1,0 +1,4 @@
+<SCRIPT language="Javascript">
+	if (parent.frames.length)
+	parent.location.href= 'http://localhost/oaf/';
+</SCRIPT>

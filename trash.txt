@@ -1,0 +1,59 @@
+Dear Sir,
+     we have fixed your first problem and now you can fill your surname as
+required by you. Also, if you have no details to fill in for a particular page, you can skip it by clicking 'next' button at the bottom of the page. Filling in '0' is no required for such fields in the form. I hope this addresses your second query. And  regarding the third query, appropriate fields have been allocated for all the information required for shortlisting the candidates. If you do not find any field for some information, it means that information is not needed. But if you still want
+to bring your post-doc to notice of recruiters, you may include it under industrial experience. 
+       Feel free to contact in case your problems persist.
+
+Regards,
+Information Management Group,
+IIT Mandi
+
+
+
+> Dear Techhelp,
+> 
+> I have been filling up the online application form for the position of
+> Assistant Professor at your website. I find the process nicely done, but
+> have a few comments regarding where I have problems (I am marking a copy
+> to Prof. Taraphder, to whom I had sent my initial application) :
+> 
+> (1) My surname is in two different parts (Sen Gupta) but the form does not
+> allow spaces.
+> 
+> (2) Some of the sub-heads where I need to fill up 0 (e.g. # industrial
+> projects =0) I still find I cannot submit the page as I need to upload a
+> pdf file with details. A better way would be to either make this upload
+> field vanish when I fill up zero OR have a question like "Do you have any
+> industrial ....?" and when answered "No" it should not require me to
+> upload a file. What do I do for now? Do I just just write "Not Applicable"
+> and upload a pdf file with that?
+> 
+> (3) I find there is no place to fill up my work experience as a post-doc
+> (if I am not wrong). Should I add it to the section "Academic Profile"? I
+> guess not, as that seems to be the list of degrees I earned from 10th
+> standard till Ph.D. and post-doc experience does not exactly fall in this
+> class. May be a separate section would help, or else please let me know
+> where I can fill this up, if needed.
+> 
+> Thank you very much for your cooperation.
+> 
+> Sincerely,
+> Subhra Sen Gupta.
+> 
+> Visiting RA,
+> SN Bose Centre, Kolkata.
+> 
+> 
+> On 2012-06-06, at 12:00 PM, techhelp@iitmandi.ac.in wrote:
+> 
+>> Thank you for registering at IIT Mandi. To activate your account, please
+>> click on this link (Copy paste the following line in address bar of your
+>> browser if the following line does not apperar as a clickable link.):
+>>
+>> http://www.iitmandi.ac.in/oaf/forms/activate.php?x=subhro.sengupta%40gmail.com&y=7f17314896866b0d953c3e021825f9c9
+> 
+> 
+
+
+Information Management Group,
+IIT Mandi

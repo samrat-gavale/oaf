@@ -1,0 +1,30 @@
+<?php
+    include('includes/php/set_session.php');
+?>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>IIT Mandi</title>
+  <link rel="stylesheet" type="text/css" href="includes/css/style1.css" />
+  <link rel="stylesheet" href="menu/menu_style.css" type="text/css" />
+</head>
+
+<div id="body">
+<div id="header">
+<img src="images/header_low.jpg" alt=“header” width=“” style="width:100%; height=70%;">
+<br/>
+<br/>
+</div>
+<ul id="menu">
+		<li><a href="index.php" target="_self">Home</a></li>
+		<li><a href=<?php echo $log_link; ?> target="_self"><?php echo $log_text; ?></a></li>
+		<li><?php echo $signup_link; ?></li>
+		<li><?php echo $changepass_link; ?></li>
+		<li><a href="faqs.php" target="_self">FAQ</a></li>
+		<li><a href="overview.php" target="_self">Overview</a></li>
+		<li><a href="http://www.iitmandi.ac.in" target="_blank">IIT Mandi</a></li>
+		<li><a href="contact_us.php" target="">Contact Us</a></li>
+</ul>

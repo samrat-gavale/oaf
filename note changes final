@@ -1,0 +1,23 @@
+Please Note-
+
+1. Place the oaf folder under /var/www
+
+2. do sudo chmod -R 766 oaf   ( you will also need to do sudo chmod -R 766 oaf/ )
+
+3. /oaf/includes/js/delete_records.js  line no. 11 --------> cahnge to whatever url
+
+4. create a directory /var/www/uploads/oaf_uploads------> Directory where all the uploads go.
+   change permissions to create and read documents
+
+5. /oaf/signup.php   line no. 174           ------------> change to whatever url
+
+6. /oaf/oaf_paths    line 4       ----------------------> Change BASE URL
+
+7. /oaf/includes/php/functions    ----------------------> Change (if necessary) include() path and $oaf_url
+
+8. /oaf/signup.php   line 174---------------------------> Change URL.
+
+9. /oaf/signup.php   line 192---------------------------> Change the mkdir path (if necessary)
+
+10.
+

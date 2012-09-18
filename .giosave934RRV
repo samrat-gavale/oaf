@@ -1,0 +1,170 @@
+<?php
+    include('oaf_paths.php');
+    include($includes_path.'/php/set_session.php');
+    include($includes_path.'/html/header.html');
+	include($includes_path.'/php/check_login.php');
+    include($includes_path.'/php/oaf_vars.php');
+	include($includes_path.'/js/delete_records.js');
+	require_once($includes_path.'/php/mysqlcon.php');
+	include ($includes_path.'/php/functions.php');
+	$error_msg = "";
+	if (isset($_POST['submit'])) 
+   {
+    // Grab the data from the POST
+    $degree = mysqli_real_escape_string($dbcon, trim($_POST['Degree']));
+    $specialization = mysqli_real_escape_string($dbcon, trim($_POST['Specialization']));
+    $year = mysqli_real_escape_string($dbcon, trim($_POST['Year']));
+    $institute = mysqli_real_escape_string($dbcon, trim($_POST['Institute']));
+    $grade = mysqli_real_escape_string($dbcon, trim($_POST['Grade']));
+    $error = false;
+
+    // Insert data in the database
+    if (!$error)
+    {
+      if (!empty($degree) && !empty($specialization) && !empty($year) && !empty($institute))
+      {
+			 $query = "SELECT Sr_No from Academic_Qualifications WHERE User_ID =  '" . $_SESSION['user_id'] . "'";
+			 $data = mysqli_query($dbcon, $query);
+			 $rows = mysqli_num_rows($data);
+			 //Check if maximum limit is reached
+			 if($rows<MAX_ACAD_QUALI)
+			 {
+			 //Insert a row in table Sr_No is set to 0 since it is auto incremented
+		     $query = "INSERT INTO Academic_Qualifications VALUES('" . $_SESSION['user_id'] . "', 0, '$degree','$specialization', ".
+					  "'$institute','$year', '$grade') ";
+             mysqli_query($dbcon, $query);
+			 if(($rows+1) == 5)
+			 {
+		 		$query = "UPDATE Forms_Submitted SET Academic_Qualifications = 1 WHERE User_ID = '" . $_SESSION['user_id'] . "'";
+				mysqli_query($dbcon, $query) or
+				trigger_error("Query: $q\n<br />MySQL Error: " . mysqli_error($dbcon));
+			 }
+			 // navigate to this to clear POST array
+			 header("location: $PHP_SELF?action=complete");
+             }
+			 else
+			 {
+				 $error_msg =  "You have already entered the maximum number of qualifications! You can delete other records and then add new ones.";
+			 }
+      }
+      else
+      {
+        $error_msg =  "Please enter all the data.";
+      }
+    }
+ } // End of check for form submission
+
+	  //Stuff for displaying table Check if any data of the user is present in the database
+	  $query = "SELECT Sr_No, Degree_Examination, Specialization, University_Insti, Completion_Year, Grade FROM ".
+				 "Academic_Qualifications WHERE User_ID = '" . $_SESSION['user_id'] . "' ORDER BY Completion_Year";
+	  $data = mysqli_query($dbcon, $query);
+	  if (mysqli_num_rows($data) >= 1)
+	  {
+		$i = 0;
+		while($row = mysqli_fetch_assoc($data))
+		{
+			$sr_no_array[$i] = $row['Sr_No'];
+			$degree_array[$i] = $row['Degree_Examination'];
+			$specialization_array[$i] = $row['Specialization'];
+			$year_array[$i] = $row['Completion_Year'];
+			$institute_array[$i] = $row['University_Insti'];
+			$grade_array[$i] = $row['Grade'];
+			$i++;
+		}
+
+	$table1 =<<<EOD
+	
+		<table id="table2">
+		<tbody1>
+		<tr>
+			<th scope="col"></th>
+			<th scope="col">Degree</th>
+			<th scope="col">Subject / Specialization</th>
+			<th scope="col">University / Institution</th>
+			<th >Year of Completion</th>
+			<th scope="col">Grade</th>
+		</tr>
+EOD;
+
+		for (; (list($key_sr_no, $sr_no) = each($sr_no_array)) && (list($key_degree, $degree) = each($degree_array)) && (list($key_specialization, $specialization) = each($specialization_array)) && (list($key_year, $year) = each($year_array)) && (list($key_institute, $institute) = each($institute_array)) && (list($key_grade, $grade) = each($grade_array)) ;) 
+		{
+		$table1 .= <<<EOD
+			<tr id=$sr_no>
+				<td><input type="checkbox" id=$sr_no></td>
+				<td>$degree</td>
+				<td>$specialization</td>
+				<td>$institute</td>
+				<td>$year</td>
+				<td>$grade</td>
+			</tr>
+EOD;
+		}
+
+$table1 .=<<<EOD
+		</tbody1>
+		</table>
+		<input type="button" class="delbutton" value="Delete Record" onclick='send_query("del_acad_qualification.php")' />
+		<div id='test'></div>
+EOD;
+	}
+	else
+	  {
+     $table1 = <<<EOD
+		<h3 class="alert_text">You have not yet added any academic qualification record!</h3>
+		<table id="table2">
+		<tr>
+			<th>Degree</th>
+			<th>Subject / Specialization</th>
+			<th>University / Institution</th>
+			<th>Year of Completion</th>
+			<th>Grade</th>
+		</tr>
+		</table>
+			<input type="button" class="delbutton" value="Delete Entry" onclick="" />
+EOD;
+}
+?>
+
+<div id="maincontainer">
+<div id="contentwrapper">
+
+<div id="contentcolumn1">
+<p class="texta">Academic Qualifications</p>
+<?php  echo '<p class="error_text">'.$error_msg.'</p>';  ?>
+
+<form enctype="multipart/form-data" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+    <fieldset class="fieldset1">
+ <table>
+	 <tr>
+		 <td class="labelcell"><label for="Degree" >Degree</label></td>
+		 <td class="fieldcell"><input type="text"  id="degree" name="Degree" size = "15" maxlength="40" value="<?php if (isset($_POST['Degree'])) echo $_POST['Degree']; ?>"/></td>
+	 </tr>
+	 <tr>
+		 <td class="labelcell"><label for="Specialization" >Subject / Specialization</label></td>
+		 <td class="fieldcell"><input type="text"  id="specialization" name="Specialization" size = "15" maxlength="40" value="<?php if (isset($_POST['Specialization'])) echo $_POST['Specialization']; ?>"/></td>
+	 </tr>
+	 <tr>
+		<td class="labelcell"><label for="Year">Year of Completion</label></td>
+		<td class="fieldcell"><select name="Year">
+									<option value="1972" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1972")) echo "selected"; ?> >1972</option>
+									<option value="1973" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1973")) echo "selected"; ?> >1973</option>
+									<option value="1974" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1974")) echo "selected"; ?> >1974</option>
+									<option value="1975" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1975")) echo "selected"; ?> >1975</option>
+									<option value="1976" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1976")) echo "selected"; ?> >1976</option>
+									<option value="1977" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1977")) echo "selected"; ?> >1977</option>
+									<option value="1978" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1978")) echo "selected"; ?> >1978</option>
+									<option value="1979" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1979")) echo "selected"; ?> >1979</option>
+									<option value="1980" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1980")) echo "selected"; ?> >1980</option>
+									<option value="1981" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1981")) echo "selected"; ?> >1981</option>
+									<option value="1982" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1982")) echo "selected"; ?> >1982</option>
+									<option value="1983" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1983")) echo "selected"; ?> >1983</option>
+									<option value="1984" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1984")) echo "selected"; ?> >1984</option>
+									<option value="1985" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1985")) echo "selected"; ?> >1985</option>
+									<option value="1986" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1986")) echo "selected"; ?> >1986</option>
+									<option value="1987" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1987")) echo "selected"; ?> >1987</option>
+									<option value="1988" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1988")) echo "selected"; ?> >1988</option>
+									<option value="1989" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1989")) echo "selected"; ?> >1989</option>
+									<option value="1990" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1990")) echo "selected"; ?> >1990</option>
+									<option value="1991" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1991")) echo "selected"; ?> >1991</option>
+									<option value="1992" <?php if ((isset($_POST['Year']) && $_POST['Year'] == "1992")) echo "selected"; ?> >1992</option>
+									<option value="1993" <?php if ((isset($_POS
