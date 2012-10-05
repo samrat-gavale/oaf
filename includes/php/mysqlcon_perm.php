@@ -6,10 +6,10 @@
 */
 
 // Set the database access information as constants:
-DEFINE ('DB_USER_PERM', 'root');
- DEFINE ('DB_PASSWORD_PERM', 'sbgCSE!!');
- DEFINE ('DB_HOST_PERM', 'localhost');
- DEFINE ('DB_NAME_PERM', 'Faculty_Permanent');
+DEFINE ('DB_USER_PERM', '<username>');
+ DEFINE ('DB_PASSWORD_PERM', '<password>');
+ DEFINE ('DB_HOST_PERM', '<host>');
+ DEFINE ('DB_NAME_PERM', '<name>');
 
 // Make the connection:
  $dbcon_perm = @mysqli_connect (DB_HOST_PERM, DB_USER_PERM, DB_PASSWORD_PERM, DB_NAME_PERM)
