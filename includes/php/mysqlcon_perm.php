@@ -7,7 +7,7 @@
 
 // Set the database access information as constants:
 DEFINE ('DB_USER_PERM', 'root');
- DEFINE ('DB_PASSWORD_PERM', 'sbgCSE!!');
+ DEFINE ('DB_PASSWORD_PERM', '******');
  DEFINE ('DB_HOST_PERM', 'localhost');
  DEFINE ('DB_NAME_PERM', 'Faculty_Permanent');
 
